@@ -2,9 +2,12 @@ import React from "react";
 import Head from "next/head";
 import Footer from "./Footer";
 import Header from "./Header";
-import styles from "../../styles/Layout.module.css";
+import styles from "@/styles/Layout.module.css";
+import Showcase from "../shared/Showcase";
+import { useRouter } from "next/router";
 
 const Layout = ({ children, title, desc, keywords }) => {
+  const router = useRouter();
   return (
     <div>
       <Head>
@@ -13,6 +16,7 @@ const Layout = ({ children, title, desc, keywords }) => {
         <meta name="keywords" content={keywords} />
       </Head>
       <Header />
+      {router.pathname === "/" && <Showcase />}
       <div className={styles.container}>{children}</div>
       <Footer />
     </div>
