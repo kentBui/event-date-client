@@ -8,10 +8,11 @@ export default function HomePage({ events }) {
   return (
     <Layout title="DJ events">
       <h1>Upcoming Events</h1>
+
       <EventList events={events} />
       {events.length > 0 && (
         <Link href="/events">
-          <a className="btn-secondary">View All Events</a>
+          <a className="btn btn-secondary">View All Events</a>
         </Link>
       )}
     </Layout>
@@ -19,11 +20,12 @@ export default function HomePage({ events }) {
 }
 
 export async function getStaticProps(ctx) {
-  const res = await fetch(`${API_URL}/api/events`);
+  const res = await fetch(`${API_URL}/events?_sort=date:ASC&_limit=3`);
   const data = await res.json();
+
   return {
     props: {
-      events: data.events.slice(0, 3),
+      events: data,
       revalidate: 10 * 60 * 60,
     },
   };

@@ -5,9 +5,22 @@ import Header from "./Header";
 import styles from "@/styles/Layout.module.css";
 import Showcase from "../shared/Showcase";
 import { useRouter } from "next/router";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Layout = ({ children, title, desc, keywords }) => {
   const router = useRouter();
+  const options = {
+    position: "top-right",
+    autoClose: 5000,
+    hideProgressBar: false,
+    newestOnTop: false,
+    closeOnClick: true,
+    rtl: false,
+    pauseOnFocusLoss: true,
+    draggable: true,
+    pauseOnHover: true,
+  };
   return (
     <div>
       <Head>
@@ -15,6 +28,8 @@ const Layout = ({ children, title, desc, keywords }) => {
         <meta name="description" content={desc} />
         <meta name="keywords" content={keywords} />
       </Head>
+      <ToastContainer options={options} />
+
       <Header />
       {router.pathname === "/" && <Showcase />}
       <div className={styles.container}>{children}</div>

@@ -12,10 +12,10 @@ const EventDetailsPage = ({ event }) => {
 };
 
 export async function getStaticPaths() {
-  const res = await fetch(`${API_URL}/api/events`);
+  const res = await fetch(`${API_URL}/events`);
 
   const data = await res.json();
-  const paths = data.events.map((item) => ({ params: { slug: item.slug } }));
+  const paths = data.map((item) => ({ params: { slug: item.slug } }));
 
   return {
     paths,
@@ -25,11 +25,11 @@ export async function getStaticPaths() {
 export async function getStaticProps(ctx) {
   const { slug } = ctx.params;
 
-  const res = await fetch(`${API_URL}/api/events/${slug}`);
-  const { event } = await res.json();
+  const res = await fetch(`${API_URL}/events?slug=${slug}`);
+  const data = await res.json();
 
   return {
-    props: { event },
+    props: { event: data[0] },
     revalidate: 10 * 60 * 60,
   };
 }

@@ -1,0 +1,29 @@
+.form .file {
+  border: 1px solid #ccc;
+  background-color: #f4f4f4;
+  padding: 10px;
+}
+
+.form .file > input {
+  appearance: none;
+  display: none;
+}
+.form .file > label svg {
+  color: red;
+}
+.form .file > label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+}
+
+.form input[type="submit"] {
+  display: block;
+  width: 100%;
+  margin: 20px 0 30px;
+}
+
+.show_image ul {
+  list-style: none;
+}

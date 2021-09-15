@@ -46,8 +46,8 @@ h1 {
   color: #fff !important;
   border: 0;
   border-radius: 5px;
-  padding: 5px 15px;
-  margin: 0 20px;
+  /* padding: 5px 15px; */
+  /* margin: 0 20px; */
   cursor: pointer;
 }
 
@@ -63,4 +63,46 @@ h1 {
 
 .btn-icon svg {
   margin-right: 5px;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  list-style: none;
+  border-radius: 7px;
+}
+
+.pagination li {
+  width: 70px;
+  height: 100%;
+  text-align: center;
+
+  cursor: pointer;
+  background-color: aquamarine;
+}
+
+.pagination li.active,
+.pagination li:hover {
+  background-color: greenyellow;
+}
+
+.pagination li a {
+  font-size: 20px;
+}
+
+.previous.disabled,
+.next.disabled {
+  pointer-events: none;
+  background-color: #aaa;
+}
+
+.previous {
+  border-top-left-radius: 8px;
+  border-bottom-left-radius: 8px;
+}
+.next {
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
 }
