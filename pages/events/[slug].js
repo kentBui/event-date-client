@@ -11,26 +11,38 @@ const EventDetailsPage = ({ event }) => {
   );
 };
 
-export async function getStaticPaths() {
-  const res = await fetch(`${API_URL}/events`);
+// export async function getStaticPaths() {
+//   const res = await fetch(`${API_URL}/events`);
 
-  const data = await res.json();
-  const paths = data.map((item) => ({ params: { slug: item.slug } }));
+//   const data = await res.json();
+//   const paths = data.map((item) => ({ params: { slug: item.slug } }));
 
-  return {
-    paths,
-    fallback: false,
-  };
-}
-export async function getStaticProps(ctx) {
-  const { slug } = ctx.params;
+//   return {
+//     paths,
+//     fallback: false,
+//   };
+// }
+// export async function getStaticProps(ctx) {
+//   const { slug } = ctx.params;
 
+//   const res = await fetch(`${API_URL}/events?slug=${slug}`);
+//   const data = await res.json();
+
+//   return {
+//     props: { event: data[0] },
+//     revalidate: 10 * 60 * 60,
+//   };
+// }
+
+export async function getServerSideProps(ctx) {
+  const { slug } = ctx.query;
   const res = await fetch(`${API_URL}/events?slug=${slug}`);
   const data = await res.json();
 
   return {
-    props: { event: data[0] },
-    revalidate: 10 * 60 * 60,
+    props: {
+      event: data[0],
+    },
   };
 }
 

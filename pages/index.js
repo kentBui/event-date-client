@@ -20,6 +20,7 @@ export default function HomePage({ events }) {
 }
 
 export async function getStaticProps(ctx) {
+  console.log(API_URL);
   const res = await fetch(`${API_URL}/events?_sort=date:ASC&_limit=3`);
   const data = await res.json();
 

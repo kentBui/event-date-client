@@ -1,12 +1,15 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Link from "next/link";
 import styles from "@/styles/Auth.module.css";
 import { FaUser } from "react-icons/fa";
 import { toast } from "react-toastify";
+import AuthContext from "@/context/AuthContext";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const { login, error } = useContext(AuthContext);
 
   const handleSubmitLogin = (e) => {
     e.preventDefault();
@@ -14,7 +17,15 @@ const Login = () => {
       toast.error("Please fill all filed");
       return;
     }
+
+    login({ email, password });
   };
+
+  useEffect(() => {
+    if (error) {
+      toast.error(error);
+    }
+  }, [error]);
 
   return (
     <div className={styles.auth}>

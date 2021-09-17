@@ -3,7 +3,7 @@ import styles from "@/styles/ImageUpload.module.css";
 import { FaFile } from "react-icons/fa";
 import { API_URL } from "@/config/index";
 
-const ImageUpload = ({ evtId, imageUploaded }) => {
+const ImageUpload = ({ evtId, imageUploaded, token }) => {
   const [image, setImage] = useState(null);
 
   const handleSubmitUpload = async (e) => {
@@ -17,6 +17,9 @@ const ImageUpload = ({ evtId, imageUploaded }) => {
     try {
       const res = await fetch(`${API_URL}/upload`, {
         method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
         body: formData,
       });
       if (res.ok) {

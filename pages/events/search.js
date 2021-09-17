@@ -19,7 +19,7 @@ const SearchPage = ({ events }) => {
       <EventList events={events} />
       {events.length > 0 && (
         <Link href="/events">
-          <a className="btn-secondary">View All Events</a>
+          <a className="btn btn-secondary">View All Events</a>
         </Link>
       )}
     </Layout>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import Head from "next/head";
 import Footer from "./Footer";
 import Header from "./Header";
@@ -7,8 +7,14 @@ import Showcase from "../shared/Showcase";
 import { useRouter } from "next/router";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import AuthContext from "@/context/AuthContext";
 
 const Layout = ({ children, title, desc, keywords }) => {
+  const { checkUserLogin } = useContext(AuthContext);
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(() => checkUserLogin(), []);
+
   const router = useRouter();
   const options = {
     position: "top-right",

@@ -1,14 +1,17 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { FaUser } from "react-icons/fa";
 import Link from "next/link";
 import styles from "@/styles/Auth.module.css";
 import { toast } from "react-toastify";
+import AuthContext from "@/context/AuthContext";
 
 const Register = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordConfirm, setPasswordConfirm] = useState("");
+
+  const { register, error } = useContext(AuthContext);
 
   const handleSubmitRegister = (e) => {
     e.preventDefault();
@@ -21,7 +24,15 @@ const Register = () => {
       toast.error("Password does not match");
       return;
     }
+
+    register({ username, email, password, passwordConfirm });
   };
+
+  useEffect(() => {
+    if (error) {
+      toast.error(error);
+    }
+  }, [error]);
 
   return (
     <div className={styles.auth}>

@@ -12,7 +12,7 @@ import Modal from "../common/Modal";
 import { scrollTop } from "utils/scroll";
 import ImageUpload from "../common/ImageUpload";
 
-const AddEvent = ({ event = null }) => {
+const AddEvent = ({ event = null, token }) => {
   const [values, setValues] = useState({
     name: "",
     time: "",
@@ -77,19 +77,33 @@ const AddEvent = ({ event = null }) => {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
           },
           body: JSON.stringify(values),
         });
-        data = await res.json();
+        if (!res.ok) {
+          if (res.status === 403 || res.status === 401) {
+            toast.error("No authentication");
+          }
+        } else {
+          data = await res.json();
+        }
       } else {
         const res = await fetch(`${API_URL}/events/${event.id}`, {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
           },
           body: JSON.stringify(values),
         });
-        data = await res.json();
+        if (!res.ok) {
+          if (res.status === 403 || res.status === 401) {
+            toast.error("No authentication");
+          }
+        } else {
+          data = await res.json();
+        }
       }
 
       console.log(data);
@@ -103,6 +117,7 @@ const AddEvent = ({ event = null }) => {
   const imageUploaded = async () => {
     const res = await fetch(`${API_URL}/events/${event.id}`);
     const data = await res.json();
+    console.log(data);
     setImagePreview(data.image.formats.thumbnail.url);
     setShowModal(false);
   };
@@ -216,7 +231,11 @@ const AddEvent = ({ event = null }) => {
 
       {showModal && (
         <Modal show={showModal} onClose={onClose} title="Upload Image">
-          <ImageUpload evtId={event.id} imageUploaded={imageUploaded} />
+          <ImageUpload
+            evtId={event.id}
+            imageUploaded={imageUploaded}
+            token={token}
+          />
         </Modal>
       )}
     </div>
